@@ -1,0 +1,24 @@
+import cors from "cors"
+
+const ACCEPTED_ORIGINS=[
+    "http://localhost:4200"
+]
+
+export const corsMiddleware=({acceptedOrigins=ACCEPTED_ORIGINS}={})=>{
+
+    return cors({
+    origin:(origin,callback)=>{
+        if(!origin){
+        return callback(null,true);
+        }
+
+        if(acceptedOrigins.includes(origin)){
+        return callback(null,true)
+        }
+
+        return callback(new Error("Origen no permitido"))
+
+    }
+    })
+
+}
